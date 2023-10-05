@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface PizzaRepo extends JpaRepository<Pizza, Integer> {
 
 	public List<Pizza> findByName(String name);
+	public List<Pizza> findByNameContainingOrDescriptionContaining(String name, String description);
 }
