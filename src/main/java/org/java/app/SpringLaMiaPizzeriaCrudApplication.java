@@ -1,6 +1,6 @@
 package org.java.app;
 
-import java.util.List;
+
 
 import org.java.app.db.pizza.Pizza;
 import org.java.app.db.serv.PizzaService;
@@ -35,8 +35,7 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 		pizzaService.save(Bufa);
 		pizzaService.save(Verd);
 		
-		List<Pizza>pizze = pizzaService.findAll();
-		pizze.forEach(System.out::println);
+		System.out.println("Insertion done!");
 		
 	}
 

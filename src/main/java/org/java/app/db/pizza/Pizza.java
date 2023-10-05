@@ -14,7 +14,7 @@ public class Pizza {
 	private int id;
 	
 	
-	@Column(length = 128 , nullable = false)
+	@Column(unique = true , nullable = false)
 	private String name;
 	private String description;
 	private String pic;
