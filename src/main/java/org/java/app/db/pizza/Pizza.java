@@ -1,10 +1,14 @@
 package org.java.app.db.pizza;
 
+import org.hibernate.validator.constraints.Length;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 public class Pizza {
@@ -14,14 +18,31 @@ public class Pizza {
 	private int id;
 	
 	
-	@Column(unique = true , nullable = false)
+	@Column(length = 50, unique = true , nullable = false)
+	@Length(min=1,
+			max=50,
+			message = "Lunghezza minima di 1 carattere, massima di 50")
+	@NotBlank
 	private String name;
+	@Length(min=1,
+			max=50,
+			message = "Lunghezza minima di 1 carattere, massima di 50")
+	@NotBlank
 	private String description;
+	
+	@Column(length = 128 , nullable = false)
+	@Length(min=1,
+			max=128,
+			message = "Lunghezza minima di 1 carattere, massima di 128")
+	@NotBlank
 	private String pic;
-	private String price;
+	
+	@Column(nullable = false)
+	@Positive(message = "Deve essere un valore superiore alla linea poveraccio")
+	private float price;
 	
 	public Pizza() { }
-	public Pizza(String name, String description, String pic, String price) {
+	public Pizza(String name, String description, String pic, float price) {
 		setName(name);
 		setDescription(description);
 		setPic(pic);
@@ -51,10 +72,10 @@ public class Pizza {
 	public void setPic(String pic) {
 		this.pic = pic;
 	}
-	public String getPrice() {
+	public float getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 	@Override
