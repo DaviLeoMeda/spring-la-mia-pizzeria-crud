@@ -26,6 +26,16 @@
     	        <small>[[*{description}]]</small><br />
     	        [[*{price}]]
     	    </a>
+    	    -
+    	    <a th:href="@{/pizze/update/{id}(id=*{id})}">
+				EDIT
+			</a>
+			-
+			<form th:action="@{/pizze/delete/{id}(id=*{id})}" 
+				method="POST"
+				style="display: inline;">
+				<input type="submit" value="DELETE">
+			</form>
     	</li>
 	</ul>
 </body>

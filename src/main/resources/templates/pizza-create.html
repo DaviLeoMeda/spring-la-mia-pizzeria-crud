@@ -5,10 +5,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>CREIAMO UNA NUOVA PIZZA</h1>
+	<h1>
+		<span th:if="${pizza.id < 1}">
+			CREATE NEW PIZZA
+		</span>
+		<span th:if="${pizza.id > 0}">
+			CREATE NEW PIZZA
+		</span>
+	</h1>
 	<form
 		th:object="${pizza}"
-		method="post"
+		method="POST"
 	>
 	
 		<label for="name">Name</label>
@@ -53,7 +60,7 @@
 		<br />
 		
 		
-		<input type="submit" name="creation" value="Let me create it!">
+		<input type="submit" th:value="${pizza.id < 0 ? 'Let me create it!' : 'Let me update it!'}" />
 	
 	</form>
 

@@ -62,7 +62,9 @@ public class PizzaController {
 			BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			System.out.println("Error: ");
-			bindingResult.getAllErrors().forEach(System.out::println);
+			bindingResult.getAllErrors().stream()
+			.map(e -> e.getDefaultMessage())
+			.forEach(System.out::println);
 			
 			return "pizza-create";
 		} else {
@@ -78,10 +80,57 @@ public class PizzaController {
 		}
 		
 		
+		 
+		return "redirect:/pizze";
+	}
+	
+	@GetMapping("/pizze/update/{id}")
+	public String getUpdate(
+			@PathVariable int id,
+			Model model
+		) {
+		
+		Pizza pizza = pizzaService.findById(id);
+		model.addAttribute("pizza", pizza);
+		
+		return "pizza-create";
+	}
+		
+		
+	
+	@PostMapping("/pizze/update/{id}")
+	public String updatePizza(
+			@Valid @ModelAttribute Pizza formPizza,
+			BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			System.out.println("Error: ");
+			bindingResult.getAllErrors().stream()
+			.map(e -> e.getDefaultMessage())
+			.forEach(System.out::println);
+			
+			return "pizza-create";
+		} else {
+			System.out.println("Data confirmed");
+		}
+		
+		System.out.println(formPizza);
+		
+		try {pizzaService.save(formPizza);
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		
 		return "redirect:/pizze";
 	}
 	
-	
+	@PostMapping("/pizze/delete/{id}")
+	public String deletePizza(@PathVariable int id) {
+		
+		Pizza pizza = pizzaService.findById(id);
+		pizzaService.deletePizza(pizza);
+		
+		return "redirect:/pizze";
+	}
 	
 }
